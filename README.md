@@ -1,2 +1,23 @@
-# ekos
-AI-powered Enterprise Discovery Platform that helps engineering teams understand, analyze and modernize enterprise applications in minutes.
+# EKOS
+
+Enterprise Discovery Platform
+
+## Vision
+
+Understand any enterprise application in minutes instead of weeks.
+
+## Current Status
+
+🚧 Version 0.1 under development.
+
+## Planned Features
+
+- Enterprise Discovery
+- Architecture Analysis
+- AI Documentation
+- Health Score
+- PDF Reports
+
+## License
+
+To be decided before public release.
