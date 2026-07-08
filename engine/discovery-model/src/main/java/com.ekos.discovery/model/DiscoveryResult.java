@@ -1,0 +1,47 @@
+package com.ekos.discovery.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DiscoveryResult {
+
+    private String projectName;
+
+    private ProjectMetadata metadata = new ProjectMetadata();
+
+    private ProjectStructure structure = new ProjectStructure();
+
+    private List<Technology> technologies = new ArrayList<>();
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public ProjectMetadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(ProjectMetadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public List<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<Technology> technologies) {
+        this.technologies = technologies;
+    }
+
+    public ProjectStructure getStructure() {
+        return structure;
+    }
+
+    public void setStructure(ProjectStructure structure) {
+        this.structure = structure;
+    }
+}
