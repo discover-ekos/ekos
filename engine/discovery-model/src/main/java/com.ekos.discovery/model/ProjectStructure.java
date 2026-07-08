@@ -23,6 +23,8 @@ public class ProjectStructure {
 
     private DatabaseInfo database = new DatabaseInfo();
 
+    private List<ComponentRelation> componentRelations = new ArrayList<>();
+
     public List<ComponentInfo> getControllers() {
         return controllers;
     }
@@ -93,6 +95,14 @@ public class ProjectStructure {
 
     public void setDatabase(DatabaseInfo database) {
         this.database = database;
+    }
+
+    public List<ComponentRelation> getComponentRelations() {
+        return componentRelations;
+    }
+
+    public void setComponentRelations(List<ComponentRelation> componentRelations) {
+        this.componentRelations = componentRelations;
     }
 
     public int getControllerCount() {

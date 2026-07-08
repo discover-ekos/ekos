@@ -10,19 +10,22 @@ import java.nio.file.Path;
 
 public class JavaDiscoveryPlugin implements DiscoveryPlugin {
 
-    private final JavaStructureScanner structureScanner =
-            new JavaStructureScanner();
+    private final StructureDiscoveryStep structureScanner =
+            new StructureDiscoveryStep();
 
-    private final DependencyScanner dependencyScanner =
-            new DependencyScanner();
+    private final DependencyDiscoveryStep dependencyScanner =
+            new DependencyDiscoveryStep();
 
-    private final DatabaseScanner databaseScanner =
-            new DatabaseScanner();
+    private final DatabaseDiscoveryStep databaseScanner =
+            new DatabaseDiscoveryStep();
 
-    private final PomParser pomParser = new PomParser();
+    private final PomDiscoveryStep pomParser = new PomDiscoveryStep();
 
-    private final RestApiScanner restApiScanner =
-            new RestApiScanner();
+    private final RestApiDiscoveryStep restApiScanner =
+            new RestApiDiscoveryStep();
+
+    private final CallGraphScanner callGraphScanner =
+            new CallGraphScanner();
 
     @Override
     public String getName() {
@@ -66,6 +69,7 @@ public class JavaDiscoveryPlugin implements DiscoveryPlugin {
                 result.getStructure()
         );
 
+        callGraphScanner.scan(projectRoot);
         result.getTechnologies().add(new Technology("Java", metadata.getJavaVersion()));
         result.getTechnologies().add(new Technology("Maven", metadata.getBuildTool()));
 

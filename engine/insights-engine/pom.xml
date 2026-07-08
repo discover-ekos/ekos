@@ -12,5 +12,13 @@
     <artifactId>insights-engine</artifactId>
 
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.ekos</groupId>
+            <artifactId>discovery-model</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,5 +1,6 @@
 package com.ekos.backend.config;
 
+import com.ekos.insights.ArchitectureAnalyzer;
 import com.ekos.plugins.backend.java.JavaDiscoveryPlugin;
 import com.ekos.scanner.PluginRegistry;
 import com.ekos.scanner.ScannerEngine;
@@ -24,6 +25,11 @@ public class DiscoveryConfiguration {
 
         return new ScannerEngine(registry);
 
+    }
+
+    @Bean
+    public ArchitectureAnalyzer architectureAnalyzer() {
+        return new ArchitectureAnalyzer();
     }
 
 }

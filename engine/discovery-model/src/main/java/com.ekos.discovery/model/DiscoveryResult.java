@@ -13,6 +13,8 @@ public class DiscoveryResult {
 
     private List<Technology> technologies = new ArrayList<>();
 
+    private List<ArchitectureIssue> architectureIssues = new ArrayList<>();
+
     public String getProjectName() {
         return projectName;
     }
@@ -43,5 +45,13 @@ public class DiscoveryResult {
 
     public void setStructure(ProjectStructure structure) {
         this.structure = structure;
+    }
+
+    public List<ArchitectureIssue> getArchitectureIssues() {
+        return architectureIssues;
+    }
+
+    public void setArchitectureIssues(List<ArchitectureIssue> architectureIssues) {
+        this.architectureIssues = architectureIssues;
     }
 }

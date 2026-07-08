@@ -3,6 +3,7 @@ package com.ekos.plugins.backend.java;
 import com.ekos.discovery.model.ProjectStructure;
 import com.ekos.discovery.model.RepositoryInfo;
 import com.ekos.discovery.model.TableInfo;
+import com.ekos.plugins.backend.java.pipeline.DiscoveryStep;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -12,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class DatabaseScanner {
+public class DatabaseDiscoveryStep{
 
     private final DatasourceDetector datasourceDetector =
             new DatasourceDetector();
