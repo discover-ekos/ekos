@@ -15,6 +15,8 @@ public class DiscoveryResult {
 
     private List<ArchitectureIssue> architectureIssues = new ArrayList<>();
 
+    private HealthScore healthScore = new HealthScore();
+
     public String getProjectName() {
         return projectName;
     }
@@ -53,5 +55,13 @@ public class DiscoveryResult {
 
     public void setArchitectureIssues(List<ArchitectureIssue> architectureIssues) {
         this.architectureIssues = architectureIssues;
+    }
+
+    public HealthScore getHealthScore() {
+        return healthScore;
+    }
+
+    public void setHealthScore(HealthScore healthScore) {
+        this.healthScore = healthScore;
     }
 }

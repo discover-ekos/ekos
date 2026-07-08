@@ -1,6 +1,7 @@
 package com.ekos.backend.config;
 
 import com.ekos.insights.ArchitectureAnalyzer;
+import com.ekos.insights.HealthScoreCalculator;
 import com.ekos.plugins.backend.java.JavaDiscoveryPlugin;
 import com.ekos.scanner.PluginRegistry;
 import com.ekos.scanner.ScannerEngine;
@@ -30,6 +31,11 @@ public class DiscoveryConfiguration {
     @Bean
     public ArchitectureAnalyzer architectureAnalyzer() {
         return new ArchitectureAnalyzer();
+    }
+
+    @Bean
+    public HealthScoreCalculator healthScoreCalculator() {
+        return new HealthScoreCalculator();
     }
 
 }
