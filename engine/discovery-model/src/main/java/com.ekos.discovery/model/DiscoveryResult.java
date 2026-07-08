@@ -17,6 +17,8 @@ public class DiscoveryResult {
 
     private HealthScore healthScore = new HealthScore();
 
+    private ProjectSummary summary = new ProjectSummary();
+
     public String getProjectName() {
         return projectName;
     }
@@ -63,5 +65,13 @@ public class DiscoveryResult {
 
     public void setHealthScore(HealthScore healthScore) {
         this.healthScore = healthScore;
+    }
+
+    public ProjectSummary getSummary() {
+        return summary;
+    }
+
+    public void setSummary(ProjectSummary summary) {
+        this.summary = summary;
     }
 }

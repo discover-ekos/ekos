@@ -2,6 +2,7 @@ package com.ekos.backend.config;
 
 import com.ekos.insights.ArchitectureAnalyzer;
 import com.ekos.insights.HealthScoreCalculator;
+import com.ekos.insights.ProjectSummaryGenerator;
 import com.ekos.plugins.backend.java.JavaDiscoveryPlugin;
 import com.ekos.scanner.PluginRegistry;
 import com.ekos.scanner.ScannerEngine;
@@ -38,4 +39,8 @@ public class DiscoveryConfiguration {
         return new HealthScoreCalculator();
     }
 
+    @Bean
+    public ProjectSummaryGenerator projectSummaryGenerator() {
+        return new ProjectSummaryGenerator();
+    }
 }
