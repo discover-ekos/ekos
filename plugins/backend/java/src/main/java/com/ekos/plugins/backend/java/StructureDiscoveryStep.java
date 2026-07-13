@@ -2,14 +2,10 @@ package com.ekos.plugins.backend.java;
 
 import com.ekos.discovery.model.ComponentInfo;
 import com.ekos.discovery.model.ProjectStructure;
-import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.stream.Stream;
 
 public class StructureDiscoveryStep extends AbstractJavaScanner {
 
@@ -18,13 +14,13 @@ public class StructureDiscoveryStep extends AbstractJavaScanner {
         ProjectStructure structure = new ProjectStructure();
 
         scanJavaFiles(projectRoot,
-                (cu, file) -> processCompilationUnit(cu, structure));
+                (cu, file) -> processCompilationUnit(cu, file, structure));
         return structure;
     }
 
     private void processCompilationUnit(
             CompilationUnit cu,
-            ProjectStructure structure) {
+            Path file, ProjectStructure structure) {
 
         try {
 

@@ -19,7 +19,6 @@ public class ServiceCallInfo {
         this.controller = controller;
     }
 
-
     public List<String> getServices() {
         return services;
     }
@@ -34,5 +33,26 @@ public class ServiceCallInfo {
 
     public void setRepositories(List<String> repositories) {
         this.repositories = repositories;
+    }
+
+    // Convenience methods
+    public void addService(String service) {
+        if (!services.contains(service)) {
+            services.add(service);
+        }
+    }
+
+    public void addRepository(String repository) {
+        if (!repositories.contains(repository)) {
+            repositories.add(repository);
+        }
+    }
+
+    public String getPrimaryService() {
+        return services.isEmpty() ? null : services.get(0);
+    }
+
+    public String getPrimaryRepository() {
+        return repositories.isEmpty() ? null : repositories.get(0);
     }
 }

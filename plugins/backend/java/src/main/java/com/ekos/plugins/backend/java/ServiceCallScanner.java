@@ -47,9 +47,7 @@ public class ServiceCallScanner extends AbstractJavaScanner {
                                                 field.getElementType().asString();
 
                                         if (contains(structure.getServices(), type)) {
-                                            info.getServices().add(type);;
-                                        }
-
+                                            info.addService(type);                                        }
                                     });
 
                         }
@@ -57,7 +55,7 @@ public class ServiceCallScanner extends AbstractJavaScanner {
                         if (contains(structure.getServices(), className)) {
 
                             if (!info.getServices().contains(className)) {
-                                info.getServices().add(className);
+                                info.addService(className);;
                             }
                             clazz.findAll(FieldDeclaration.class)
                                     .forEach(field -> {
@@ -66,7 +64,7 @@ public class ServiceCallScanner extends AbstractJavaScanner {
                                                 field.getElementType().asString();
 
                                         if (contains(structure.getRepositories(), type)) {
-                                            info.getRepositories().add(type);
+                                            info.addRepository(type);
                                         }
 
                                     });
