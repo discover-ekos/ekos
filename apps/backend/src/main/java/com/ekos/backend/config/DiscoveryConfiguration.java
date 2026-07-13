@@ -1,8 +1,6 @@
 package com.ekos.backend.config;
 
-import com.ekos.insights.ArchitectureAnalyzer;
-import com.ekos.insights.HealthScoreCalculator;
-import com.ekos.insights.ProjectSummaryGenerator;
+import com.ekos.insights.*;
 import com.ekos.plugins.backend.java.JavaDiscoveryPlugin;
 import com.ekos.scanner.PluginRegistry;
 import com.ekos.scanner.ScannerEngine;
@@ -42,5 +40,25 @@ public class DiscoveryConfiguration {
     @Bean
     public ProjectSummaryGenerator projectSummaryGenerator() {
         return new ProjectSummaryGenerator();
+    }
+
+    @Bean
+    public DuplicateApiAnalyzer duplicateApiAnalyzer() {
+        return new DuplicateApiAnalyzer();
+    }
+
+    @Bean
+    public MissingServiceAnalyzer missingServiceAnalyzer() {
+        return new MissingServiceAnalyzer();
+    }
+
+    @Bean
+    public MissingRepositoryAnalyzer missingRepositoryAnalyzer() {
+        return new MissingRepositoryAnalyzer();
+    }
+
+    @Bean
+    public ProjectStatisticsGenerator projectStatisticsGenerator() {
+        return new ProjectStatisticsGenerator();
     }
 }

@@ -17,6 +17,9 @@ public class ComponentInfo {
         this.filePath = filePath;
     }
 
+    public ComponentInfo() {
+    }
+
     public String getName() {
         return name;
     }

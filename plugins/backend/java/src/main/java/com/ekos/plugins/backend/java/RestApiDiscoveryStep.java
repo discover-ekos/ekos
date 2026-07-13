@@ -1,5 +1,6 @@
 package com.ekos.plugins.backend.java;
 
+import com.ekos.discovery.model.ApiInventory;
 import com.ekos.discovery.model.ProjectStructure;
 import com.ekos.discovery.model.RestEndpoint;
 import com.github.javaparser.StaticJavaParser;
@@ -13,27 +14,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class RestApiDiscoveryStep {
+public class RestApiDiscoveryStep extends AbstractJavaScanner {
 
     public void scan(Path projectRoot, ProjectStructure structure) {
 
-        try (Stream<Path> files = Files.walk(projectRoot)) {
-
-            files.filter(file -> file.toString().endsWith(".java"))
-                    .forEach(file -> processJavaFile(file, structure));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        scanJavaFiles(projectRoot,
+                (cu, file) -> processCompilationUnit(cu, structure));
 
     }
 
-    private void processJavaFile(Path javaFile,
-                                 ProjectStructure structure) {
+    private void processCompilationUnit(
+            CompilationUnit cu,
+            ProjectStructure structure) {
 
         try {
-
-            CompilationUnit cu = StaticJavaParser.parse(javaFile);
 
             cu.findAll(ClassOrInterfaceDeclaration.class)
                     .forEach(clazz -> {
@@ -48,9 +42,12 @@ public class RestApiDiscoveryStep {
                                 .forEach(method -> {
 
                                     RestEndpoint endpoint =
-                                            buildEndpoint(clazz.getNameAsString(),
+                                            buildEndpoint(
+                                                    structure,
+                                                    clazz.getNameAsString(),
                                                     basePath,
-                                                    method);
+                                                    method
+                                            );
 
                                     if (endpoint != null) {
                                         structure.getRestEndpoints().add(endpoint);
@@ -85,9 +82,10 @@ public class RestApiDiscoveryStep {
 
     }
 
-    private RestEndpoint buildEndpoint(String controller,
+    private RestEndpoint buildEndpoint(ProjectStructure structure,
+                                       String controller,
                                        String basePath,
-                                       MethodDeclaration method) {
+                                       MethodDeclaration method){
 
         for (AnnotationExpr annotation : method.getAnnotations()) {
 
@@ -122,6 +120,54 @@ public class RestApiDiscoveryStep {
             endpoint.setJavaMethod(method.getNameAsString());
 
             endpoint.setPath(basePath + extractPath(annotation.toString()));
+
+            ApiInventory api = new ApiInventory();
+
+            api.setMethod(httpMethod);
+
+            api.setPath(basePath + extractPath(annotation.toString()));
+
+            api.setController(controller);
+
+            api.setJavaMethod(method.getNameAsString());
+
+            api.setProduces("application/json");
+
+            api.setConsumes("application/json");
+
+            endpoint.setController(controller);
+
+            endpoint.setMethod(httpMethod);
+
+            endpoint.setJavaMethod(method.getNameAsString());
+
+            endpoint.setPath(basePath + extractPath(annotation.toString()));
+
+            structure.getServiceCalls()
+                    .stream()
+                    .filter(c -> controller.equals(c.getController()))
+                    .findFirst()
+                    .ifPresent(call -> {
+
+                        if (!call.getServices().isEmpty()) {
+                            api.setService(String.join(", ", call.getServices()));
+                        }
+
+                        if (!call.getRepositories().isEmpty()) {
+                            api.setRepository(String.join(", ", call.getRepositories()));
+                        }
+
+                    });
+
+            if (api.getService() == null) {
+                api.setService("Unknown");
+            }
+
+            if (api.getRepository() == null) {
+                api.setRepository("Unknown");
+            }
+
+            structure.getApiInventory().add(api);
 
             return endpoint;
 

@@ -7,7 +7,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 
-public class PomDiscoveryStep {
+public class PomDiscoveryStep{
 
     public ProjectMetadata parse(File pomFile) {
 

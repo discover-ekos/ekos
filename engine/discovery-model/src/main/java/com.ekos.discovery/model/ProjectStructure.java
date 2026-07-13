@@ -29,6 +29,14 @@ public class ProjectStructure {
         return controllers;
     }
 
+    private List<ApiInventory> apiInventory = new ArrayList<>();
+
+    private List<ModuleInfo> modules = new ArrayList<>();
+
+    private List<PackageInfo> packages = new ArrayList<>();
+
+    private List<ServiceCallInfo> serviceCalls = new ArrayList<>();
+
     public void setControllers(List<ComponentInfo> controllers) {
         this.controllers = controllers;
     }
@@ -123,5 +131,37 @@ public class ProjectStructure {
 
     public int getRestEndpointCount() {
         return restEndpoints.size();
+    }
+
+    public List<ApiInventory> getApiInventory() {
+        return apiInventory;
+    }
+
+    public void setApiInventory(List<ApiInventory> apiInventory) {
+        this.apiInventory = apiInventory;
+    }
+
+    public List<ModuleInfo> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<ModuleInfo> modules) {
+        this.modules = modules;
+    }
+
+    public List<PackageInfo> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<PackageInfo> packages) {
+        this.packages = packages;
+    }
+
+    public List<ServiceCallInfo> getServiceCalls() {
+        return serviceCalls;
+    }
+
+    public void setServiceCalls(List<ServiceCallInfo> serviceCalls) {
+        this.serviceCalls = serviceCalls;
     }
 }

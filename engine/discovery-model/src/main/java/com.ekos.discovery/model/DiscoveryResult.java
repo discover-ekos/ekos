@@ -19,6 +19,8 @@ public class DiscoveryResult {
 
     private ProjectSummary summary = new ProjectSummary();
 
+    private ProjectStatistics statistics = new ProjectStatistics();
+
     public String getProjectName() {
         return projectName;
     }
@@ -73,5 +75,13 @@ public class DiscoveryResult {
 
     public void setSummary(ProjectSummary summary) {
         this.summary = summary;
+    }
+
+    public ProjectStatistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(ProjectStatistics statistics) {
+        this.statistics = statistics;
     }
 }

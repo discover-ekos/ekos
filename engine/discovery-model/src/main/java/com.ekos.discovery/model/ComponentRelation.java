@@ -6,7 +6,7 @@ public class ComponentRelation {
 
     private String target;
 
-    private String relation;
+    private String relationType;
 
     public String getSource() {
         return source;
@@ -24,12 +24,11 @@ public class ComponentRelation {
         this.target = target;
     }
 
-    public String getRelation() {
-        return relation;
+    public String getRelationType() {
+        return relationType;
     }
 
-    public void setRelation(String relation) {
-        this.relation = relation;
+    public void setRelationType(String relationType) {
+        this.relationType = relationType;
     }
-
 }

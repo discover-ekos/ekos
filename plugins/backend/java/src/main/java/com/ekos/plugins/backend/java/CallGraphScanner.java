@@ -10,26 +10,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class CallGraphScanner {
+public class CallGraphScanner extends AbstractJavaScanner {
 
     public void scan(Path projectRoot) {
 
-        try (Stream<Path> files = Files.walk(projectRoot)) {
-
-            files.filter(f -> f.toString().endsWith(".java"))
-                    .forEach(this::parseJavaFile);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        scanJavaFiles(projectRoot,
+                this::processCompilationUnit);
 
     }
 
-    private void parseJavaFile(Path file) {
+    private void processCompilationUnit(
+            CompilationUnit cu,
+            Path file) {
 
         try {
 
-            CompilationUnit cu = StaticJavaParser.parse(file);
 
             cu.findAll(ClassOrInterfaceDeclaration.class)
                     .forEach(this::processClass);

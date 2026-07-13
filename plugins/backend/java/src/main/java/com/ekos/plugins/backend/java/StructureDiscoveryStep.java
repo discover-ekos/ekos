@@ -11,30 +11,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class StructureDiscoveryStep {
+public class StructureDiscoveryStep extends AbstractJavaScanner {
 
     public ProjectStructure scan(Path projectRoot) {
 
         ProjectStructure structure = new ProjectStructure();
 
-        try (Stream<Path> files = Files.walk(projectRoot)) {
-
-            files.filter(file -> file.toString().endsWith(".java"))
-                    .forEach(file -> processJavaFile(file, structure));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        scanJavaFiles(projectRoot,
+                (cu, file) -> processCompilationUnit(cu, structure));
         return structure;
     }
 
-    private void processJavaFile(Path file,
-                                 ProjectStructure structure) {
+    private void processCompilationUnit(
+            CompilationUnit cu,
+            ProjectStructure structure) {
 
         try {
-
-            CompilationUnit cu = StaticJavaParser.parse(file);
 
             cu.findAll(ClassOrInterfaceDeclaration.class)
                     .forEach(clazz -> {

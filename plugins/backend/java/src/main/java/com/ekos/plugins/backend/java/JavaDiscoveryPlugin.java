@@ -27,6 +27,16 @@ public class JavaDiscoveryPlugin implements DiscoveryPlugin {
     private final CallGraphScanner callGraphScanner =
             new CallGraphScanner();
 
+    private final ModuleScanner moduleScanner = new ModuleScanner();
+
+    private final PackageScanner packageScanner  = new PackageScanner();
+
+    private final ServiceCallScanner serviceCallScanner = new ServiceCallScanner();
+
+    private final ConstructorInjectionScanner constructorInjectionScanner = new ConstructorInjectionScanner();
+
+    private final PackageDependencyScanner packageDependencyScanner =  new PackageDependencyScanner();
+
     @Override
     public String getName() {
         return "Java Discovery Plugin";
@@ -70,6 +80,18 @@ public class JavaDiscoveryPlugin implements DiscoveryPlugin {
         );
 
         callGraphScanner.scan(projectRoot);
+        moduleScanner.scan(projectRoot,
+                result.getStructure());
+        packageScanner.scan(projectRoot,
+                result.getStructure());
+        serviceCallScanner.scan(projectRoot,
+                result.getStructure());
+        constructorInjectionScanner.scan(
+                projectRoot,
+                result.getStructure());
+        packageDependencyScanner.scan(
+                projectRoot,
+                result.getStructure());
         result.getTechnologies().add(new Technology("Java", metadata.getJavaVersion()));
         result.getTechnologies().add(new Technology("Maven", metadata.getBuildTool()));
 
@@ -81,6 +103,8 @@ public class JavaDiscoveryPlugin implements DiscoveryPlugin {
                     )
             );
         }
+
+
 
         return result;
     }

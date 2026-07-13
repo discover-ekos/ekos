@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class DatabaseDiscoveryStep{
+public class DatabaseDiscoveryStep extends AbstractJavaScanner {
 
     private final DatasourceDetector datasourceDetector =
             new DatasourceDetector();
@@ -25,23 +25,15 @@ public class DatabaseDiscoveryStep{
                 datasourceDetector.detect(projectRoot)
         );
 
-        try (Stream<Path> files = Files.walk(projectRoot)) {
-
-            files.filter(f -> f.toString().endsWith(".java"))
-                    .forEach(file -> processJavaFile(file, structure));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        scanJavaFiles(projectRoot,
+                (cu, file) -> processCompilationUnit(cu, structure));
     }
 
-    private void processJavaFile(Path javaFile,
-                                 ProjectStructure structure) {
+    private void processCompilationUnit(
+            CompilationUnit cu,
+            ProjectStructure structure) {
 
         try {
-
-            CompilationUnit cu = StaticJavaParser.parse(javaFile);
 
             cu.findAll(ClassOrInterfaceDeclaration.class)
                     .forEach(clazz -> {

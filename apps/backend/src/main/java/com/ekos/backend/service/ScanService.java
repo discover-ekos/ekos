@@ -1,9 +1,7 @@
 package com.ekos.backend.service;
 
 import com.ekos.discovery.model.DiscoveryResult;
-import com.ekos.insights.ArchitectureAnalyzer;
-import com.ekos.insights.HealthScoreCalculator;
-import com.ekos.insights.ProjectSummaryGenerator;
+import com.ekos.insights.*;
 import com.ekos.scanner.ScannerEngine;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +18,24 @@ public class ScanService {
 
     private final ArchitectureAnalyzer architectureAnalyzer;
 
-    public ScanService(ProjectSummaryGenerator projectSummaryGenerator, HealthScoreCalculator healthScoreCalculator, ScannerEngine scannerEngine, ArchitectureAnalyzer architectureAnalyzer) {
+    private final DuplicateApiAnalyzer duplicateApiAnalyzer;
+
+    private final MissingServiceAnalyzer missingServiceAnalyzer;
+
+    private final MissingRepositoryAnalyzer missingRepositoryAnalyzer;
+
+    private final ProjectStatisticsGenerator projectStatisticsGenerator;
+
+
+    public ScanService(ProjectSummaryGenerator projectSummaryGenerator, HealthScoreCalculator healthScoreCalculator, ScannerEngine scannerEngine, ArchitectureAnalyzer architectureAnalyzer, DuplicateApiAnalyzer duplicateApiAnalyzer, MissingServiceAnalyzer missingServiceAnalyzer, MissingRepositoryAnalyzer missingRepositoryAnalyzer, ProjectStatisticsGenerator projectStatisticsGenerator) {
         this.projectSummaryGenerator = projectSummaryGenerator;
         this.healthScoreCalculator = healthScoreCalculator;
         this.scannerEngine = scannerEngine;
         this.architectureAnalyzer = architectureAnalyzer;
+        this.duplicateApiAnalyzer = duplicateApiAnalyzer;
+        this.missingServiceAnalyzer = missingServiceAnalyzer;
+        this.missingRepositoryAnalyzer = missingRepositoryAnalyzer;
+        this.projectStatisticsGenerator = projectStatisticsGenerator;
     }
 
     public DiscoveryResult scan(String path) {
@@ -33,6 +44,10 @@ public class ScanService {
         architectureAnalyzer.analyze(result);
         healthScoreCalculator.calculate(result);
         projectSummaryGenerator.generate(result);
+        duplicateApiAnalyzer.analyze(result);
+        missingServiceAnalyzer.analyze(result);
+        missingRepositoryAnalyzer.analyze(result);
+        projectStatisticsGenerator.generate(result);
         return result;
 
     }

@@ -12,28 +12,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class DependencyDiscoveryStep {
+public class DependencyDiscoveryStep extends AbstractJavaScanner {
 
     public void scan(Path projectRoot,
                      ProjectStructure structure) {
 
-        try (Stream<Path> files = Files.walk(projectRoot)) {
-
-            files.filter(f -> f.toString().endsWith(".java"))
-                    .forEach(file -> process(file, structure));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        scanJavaFiles(projectRoot,
+                (cu, file) -> processCompilationUnit(cu, structure));
 
     }
 
-    private void process(Path javaFile,
-                         ProjectStructure structure) {
+    private void processCompilationUnit(
+            CompilationUnit cu,
+            ProjectStructure structure) {
 
         try {
-
-            CompilationUnit cu = StaticJavaParser.parse(javaFile);
 
             cu.findAll(ClassOrInterfaceDeclaration.class)
                     .forEach(clazz -> {
