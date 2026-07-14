@@ -1,7 +1,7 @@
 package com.ekos.backend.config;
 
 import com.ekos.insights.*;
-import com.ekos.plugins.backend.java.JavaDiscoveryPlugin;
+import com.ekos.plugins.backend.java.pipeline.JavaDiscoveryPlugin;
 import com.ekos.scanner.PluginRegistry;
 import com.ekos.scanner.ScannerEngine;
 import org.springframework.context.annotation.Bean;

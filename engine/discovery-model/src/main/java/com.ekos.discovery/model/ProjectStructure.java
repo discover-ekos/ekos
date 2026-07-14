@@ -37,6 +37,8 @@ public class ProjectStructure {
 
     private List<ServiceCallInfo> serviceCalls = new ArrayList<>();
 
+    private List<DependencyHeat> dependencyHeatmap = new ArrayList<>();
+
     public void setControllers(List<ComponentInfo> controllers) {
         this.controllers = controllers;
     }
@@ -163,5 +165,13 @@ public class ProjectStructure {
 
     public void setServiceCalls(List<ServiceCallInfo> serviceCalls) {
         this.serviceCalls = serviceCalls;
+    }
+
+    public List<DependencyHeat> getDependencyHeatmap() {
+        return dependencyHeatmap;
+    }
+
+    public void setDependencyHeatmap(List<DependencyHeat> dependencyHeatmap) {
+        this.dependencyHeatmap = dependencyHeatmap;
     }
 }

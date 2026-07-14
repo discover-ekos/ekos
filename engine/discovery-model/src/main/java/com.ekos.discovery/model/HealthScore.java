@@ -14,6 +14,10 @@ public class HealthScore {
 
     private int documentation;
 
+    private int codeQuality;
+
+    private int maintainability;
+
     public int getOverall() {
         return overall;
     }
@@ -60,5 +64,21 @@ public class HealthScore {
 
     public void setDocumentation(int documentation) {
         this.documentation = documentation;
+    }
+
+    public int getCodeQuality() {
+        return codeQuality;
+    }
+
+    public void setCodeQuality(int codeQuality) {
+        this.codeQuality = codeQuality;
+    }
+
+    public int getMaintainability() {
+        return maintainability;
+    }
+
+    public void setMaintainability(int maintainability) {
+        this.maintainability = maintainability;
     }
 }
